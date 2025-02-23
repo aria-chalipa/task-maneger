@@ -1,19 +1,17 @@
 <template>
-    <div class="spinner-border" role="status" v-if="loading">
-        <span class="visually-hidden">Loading...</span>
-    </div>
-   <div class="card" style="width: 18rem;">
-  <div class="card-header">
+
+   <div class="card"  :class="props.task.completed ? 'bg-light': ''" style="width: 18rem;">
+  <div class="card-header" :class="props.task.completed ? 'line': ''">
     {{props.task.title}}
   </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">  
+  <ul class="list-group list-group-flush" >
+    <li class="list-group-item" :class="props.task.completed ? 'bg-light': ''">  
         <button type="button" class="btn" @click="store.changeCompleted()">
             <i  class="bi bi-check check" :class="props.task.completed ? 'text-success': ''"></i>
        </button>
     </li>
     
-    <li class="list-group-item delete">
+    <li class="list-group-item delete w-100 p-0" :class="props.task.completed ? 'bg-light': ''">
         <button type="button" class="btn" @click="deleteTask(props.task.id)">
            <i class="bi bi-trash"></i>
         </button>
@@ -52,5 +50,7 @@ button>i:hover{
     cursor: pointer;
     border-bottom: green solid 1px !important;
 }
-
+.line{
+    text-decoration: line-through;
+}
 </style>

@@ -42,7 +42,42 @@ export const tasks = defineStore('tasks',{
                 }
                 })
                
-            }
+        },
+
+        async filterTask(selected){
+            try {
+                const response = await axios.get(`https://jsonplaceholder.typicode.com/todos?_limit=${selected}`)
+                    this.tasks = response.data
+                    console.log(response.data)
+                } 
+                catch (error) {
+                    Swal.fire({
+                        title: "Error!",
+                        text: "There is a problem, please try again",
+                        icon: "error",
+                        confirmButtonText: "Ok",
+                        });
+                    }
+        },
+
+        async createTask(title){
+            try {
+                const response = await axios.post('https://jsonplaceholder.typicode.com/todos', {
+                    title:title,
+                    completed:false
+                    })
+                this.tasks.push(response.data)
+                console.log(response.data)
+                } 
+                catch (error) {
+                    Swal.fire({
+                        title: "Error!",
+                        text: "There is a problem, please try again",
+                        icon: "error",
+                        confirmButtonText: "Ok",
+                        });
+                    }
+        }
             
       }
         
