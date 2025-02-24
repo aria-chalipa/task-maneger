@@ -7,7 +7,7 @@ export const tasks = defineStore('tasks',{
     state: () =>{
         return{
             tasks:[],
-            task: {},
+            newTask: {},
             loading:true,
             error:null
         }
@@ -34,14 +34,31 @@ export const tasks = defineStore('tasks',{
             }
         },
 
-      changeCompleted(){
-           this.tasks.forEach(task => {
-            if(task.completed === true){
-                task.completed = false 
-                console.log(task.completed)
-                }
-                })
-               
+        async updateTask(task){
+           try{
+            const response = await axios.put(`https://jsonplaceholder.typicode.com/todos/${task.id}`,{
+                id:task.id,
+                title : task.title,
+                completed: !task.completed
+                // ersal darkhast samt server jahate update kardan
+            })
+            const index = this.tasks.findIndex(item => item.id === task.id)
+            // peyda kardan index task e entekhab shode dar tasks
+
+            if(index != -1){
+                this.tasks.splice(index,1,response.data)
+                // jaygozin kardan task entekhab shode ba task update shode
+            }
+
+            console.log(response)
+           }catch(err){
+            Swal.fire({
+                title: "Error!",
+                text: "There is a problem, please try again",
+                icon: "error",
+                confirmButtonText: "Ok",
+                });
+           }
         },
 
         async filterTask(selected){
@@ -66,8 +83,14 @@ export const tasks = defineStore('tasks',{
                     title:title,
                     completed:false
                     })
-                this.tasks.push(response.data)
-                console.log(response.data)
+                this.tasks.unshift(response.data)
+                Swal.fire({
+                    title: "Task created!",
+                    text: "Task created successfully",
+                    icon: "success",
+                    confirmButtonText: "Ok",
+                    timer:3000
+                })
                 } 
                 catch (error) {
                     Swal.fire({
@@ -77,6 +100,24 @@ export const tasks = defineStore('tasks',{
                         confirmButtonText: "Ok",
                         });
                     }
+        },
+
+        async deleteTask(task){
+            try{
+                const response = await axios.delete(`https://jsonplaceholder.typicode.com/todos/${task.id}`)
+                console.log(response)
+                const index = this.tasks.findIndex(item => item.id === task.id)
+                if(index != -1){
+                    this.tasks.splice(index, 1)
+                }
+            }catch(err){
+                Swal.fire({
+                    title: "Error!",
+                    text: "There is a problem, please try again",   
+                    icon: "error",
+                    confirmButtonText: "Ok",
+                })
+            }
         }
             
       }

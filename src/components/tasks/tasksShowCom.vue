@@ -37,13 +37,7 @@ async function fetchTasks() {
 }
 fetchTasks();
 
-// function updateTask(completed) {
-//     tasksList.value.completed = completed
-    
-//     completed = !completed
-    
 
-// }
 
 </script>
 
