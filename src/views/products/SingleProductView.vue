@@ -25,6 +25,7 @@ import { storeToRefs } from 'pinia';
 import { ref } from 'vue';
 import axios from 'axios';
 import { useRoute } from 'vue-router';
+// imports
 
 
 const store = useProducts()

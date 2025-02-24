@@ -4,7 +4,7 @@
         <input type="text" id="title" class="" v-model="title" :placeholder="product.title">
         <label for="price">price</label>
         <input type="text" :placeholder="product.price" v-model="price">
-        <button type="submit" >change
+        <button type="submit" class="btn btn-dark">change
             <span v-if="isLoading" class="spinner-border-sm"></span>
         </button>
     </form>
@@ -52,7 +52,3 @@ function changeProduct(){
 
 
 </script>
-
-<style>
-
-</style>

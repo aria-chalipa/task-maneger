@@ -26,8 +26,8 @@ export const useProducts = defineStore('products',{
             console.log(data)
             const index = this.productList.findIndex(item => item.id === data.id)
             if(index != -1){
-                this.productList.splice(index,1,data)
-                
+                this.productList.splice(index,1,data) 
+                console.log(this.productList[3]) 
             }
         },
 
